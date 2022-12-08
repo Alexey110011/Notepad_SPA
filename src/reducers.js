@@ -1,4 +1,3 @@
-import {createSlice} from '@reduxjs/toolkit'
 import * as types from './types'
 const initialState = {
     items:[],

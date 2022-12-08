@@ -32,17 +32,4 @@ const reducer = (state=initialState, action)=>{
 }
 
  export default reducer
- const noteSlice = createSlice({
-    name:"note",
-    initialState:{
-        items:[],
-        editedNote:[],
-        search:''
-    },
-    reducers:{
-        add_note:(state, action)=>{
-            return {...state, items:action.items}
-    }
-    }
-    })
  

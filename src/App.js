@@ -17,13 +17,75 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Home />}/> 
           <Route path='about' element={<About />}/> 
+          <Route path ='new' element = {<Note1/>}/>
           <Route path='postList' element={<Form />}/>
           <Route path = "postList/:postId" element = {<SelectedPost/>}/>
         </Routes>
       </Router>
     )
   }
-      
+  const Note1 = () => {
+    const dispatch = useDispatch()
+     const items = useSelector(state=>state.items)
+     const noteRef = useRef()
+     let _note
+
+    async function callBackendAPI(){
+      const response = await fetch('/t', {
+        method: "POST",
+          body:JSON.stringify({
+           items:items}
+          ),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+      }})
+      const body = await response.json()
+      if (response.status !== 200) {
+        throw Error(body.message) 
+      }console.log(body)
+      return body;
+  }
+
+    function handleSubmit(post/*:string*/) {
+      const pattern = /(#[a-zа-я\d-]+)/gi
+      const tag = post.match(pattern)
+      console.log(tag)
+      if (pattern.test(post)) {
+        const items1 = [...items,
+        {
+          post,
+          tag: tag ? tag[0] : null,
+          id: v4()
+        }]
+        dispatch(add_note(items1))
+      } else {
+        const items1 = [...items,
+        {
+          post,
+          tag: null,
+          id: v4()
+        }]
+        dispatch(add_note(items1))
+      }
+      callBackendAPI()
+      console.log(items)
+    }
+  
+    const submit = (e) => {
+      e.preventDefault()
+      _note = noteRef.current.value
+      //onHandleSubmit(_note)
+      handleSubmit(_note)
+      //handleClear()
+      noteRef.current.value = ''
+    }
+    return (
+      <form className="sometext">
+        <textarea className = "form-control ta" ref={noteRef} placeholder="Enter text"></textarea>
+       <button className = "btn btn-success save_" onClick={submit}><Link to ="/postList">Save</Link></button>
+      </form>
+    )
+  }
 export function Form() {
   const items = useSelector(state=>state.items)
   const editedNote = useSelector(state=>state.editedNote)
@@ -46,7 +108,7 @@ export function Form() {
     return body;
 }
 
-  function handleSubmit(post/*:string*/) {
+  /*function handleSubmit(post/*:string*//*) {
     const pattern = /(#[a-zа-я\d-]+)/gi
     const tag = post.match(pattern)
     console.log(tag)
@@ -69,7 +131,7 @@ export function Form() {
     }
     callBackendAPI()
     console.log(items)
-  }
+  }*/
 
   function handleFirstEdit(id) {
     const edited = items.filter(item=>item.id===id) 
@@ -85,14 +147,14 @@ export function Form() {
   }
   return (
     <div>
-     <Note onHandleSubmit = {handleSubmit}/>
+     {/*<Note onHandleSubmit = {handleSubmit}/>*/}
      <PostList items= {items} onEdit = {handleFirstEdit} search={search}/>
      <TagList items = {items} onEdit = {handleFirstEdit} handleChange = {handleChange}/>
     </div>
  )
 }
 
-const Note = ({ onHandleSubmit = f => f, onHandleEdit = f => f, changePost = f => f, handleClear = f => f}) => {
+/*const Note = ({ onHandleSubmit = f => f, onHandleEdit = f => f, changePost = f => f, handleClear = f => f}) => {
   const noteRef = useRef()
   let _note
   
@@ -109,13 +171,13 @@ const Note = ({ onHandleSubmit = f => f, onHandleEdit = f => f, changePost = f =
       <button className = "btn btn-success save_" onClick={submit}>Save</button>
     </form>
   )
-}
+}*/
 
 export function Home() {
   return (
     <div className = "header-nav">
-      <h1>Create new note</h1>
-      <Link to = "/postList"><button style ={{backgroundColor:"orange", color:"white", borderRadius:"50%", width:"35px", height:"35px", border: "none"}}>+</button></Link> 
+      <h1 className = "hea">Create new note</h1>
+      <Link to = "/new"><button style ={{backgroundColor:"orange", color:"white", borderRadius:"50%", width:"35px", height:"35px", border: "none"}}>+</button></Link> 
     </div>
   )
 }
@@ -133,7 +195,7 @@ const PostList =({items,search,onRemove,onEdit})=>{
   console.log(items)  
   if(items){
   return (
-      <div style = {{marginTop:"-25px"}}>
+      <div style = {{marginTop:"-25px"}}><Link to = "/new"><button style ={{backgroundColor:"orange", color:"white", borderRadius:"50%", width:"35px", height:"35px", border: "none", position:"relative", left:"230px", bottom:"10px"}}>+</button></Link> 
         {items.map(item=> 
           <div key = {item.id}>
             <Link to ={`/postList/${item.id}`}>

@@ -46,7 +46,7 @@ export default function App() {
       return body;
   }
 
-    function handleSubmit(post/*:string*/) {
+    function handleSubmit(post) {
       const pattern = /(#[a-zа-я\d-]+)/gi
       const tag = post.match(pattern)
       console.log(tag)
@@ -74,10 +74,8 @@ export default function App() {
     const submit = (e) => {
       e.preventDefault()
       _note = noteRef.current.value
-      //onHandleSubmit(_note)
-      handleSubmit(_note)
-      //handleClear()
-      noteRef.current.value = ''
+       handleSubmit(_note)
+       noteRef.current.value = ''
     }
     return (
       <form className="sometext">
@@ -91,47 +89,6 @@ export function Form() {
   const editedNote = useSelector(state=>state.editedNote)
   const search = useSelector(state=>state.search)
   const dispatch = useDispatch()   
-
-   async function callBackendAPI(){
-    const response = await fetch('/t', {
-      method: "POST",
-        body:JSON.stringify({
-         items:items}
-        ),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    }})
-    const body = await response.json()
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }console.log(body)
-    return body;
-}
-
-  /*function handleSubmit(post/*:string*//*) {
-    const pattern = /(#[a-zа-я\d-]+)/gi
-    const tag = post.match(pattern)
-    console.log(tag)
-    if (pattern.test(post)) {
-      const items1 = [...items,
-      {
-        post,
-        tag: tag ? tag[0] : null,
-        id: v4()
-      }]
-      dispatch(add_note(items1))
-    } else {
-      const items1 = [...items,
-      {
-        post,
-        tag: null,
-        id: v4()
-      }]
-      dispatch(add_note(items1))
-    }
-    callBackendAPI()
-    console.log(items)
-  }*/
 
   function handleFirstEdit(id) {
     const edited = items.filter(item=>item.id===id) 
@@ -153,25 +110,6 @@ export function Form() {
     </div>
  )
 }
-
-/*const Note = ({ onHandleSubmit = f => f, onHandleEdit = f => f, changePost = f => f, handleClear = f => f}) => {
-  const noteRef = useRef()
-  let _note
-  
-  const submit = (e) => {
-    e.preventDefault()
-    _note = noteRef.current.value
-    onHandleSubmit(_note)
-    handleClear()
-    noteRef.current.value = ''
-  }
-  return (
-    <form className="sometext">
-      <textarea className = "form-control ta" ref={noteRef} placeholder="Enter text"></textarea>
-      <button className = "btn btn-success save_" onClick={submit}>Save</button>
-    </form>
-  )
-}*/
 
 export function Home() {
   return (

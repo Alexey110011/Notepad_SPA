@@ -9,9 +9,11 @@ import './App.css';
 export default function App() {
       return (
       <Router>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/postList">Posts</Link>
+        <ul className = "nav">
+        <Link to="/" className = "nav-link text-warning">Home</Link>
+        <Link to="/about" className = "nav-link text-warning">About</Link>
+        <Link to="/postList" className = "nav-link text-warning">Posts</Link>
+        </ul>
         <Routes>
           <Route path='/' element={<Home />}/> 
           <Route path='about' element={<About />}/> 
@@ -103,24 +105,24 @@ const Note = ({ onHandleSubmit = f => f, onHandleEdit = f => f, changePost = f =
   }
   return (
     <form className="sometext">
-      <textarea className = "ta" ref={noteRef} placeholder="Enter text"></textarea>
-      <button className = "btn btn-success" onClick={submit}>Save</button>
+      <textarea className = "form-control ta" ref={noteRef} placeholder="Enter text"></textarea>
+      <button className = "btn btn-success save_" onClick={submit}>Save</button>
     </form>
   )
 }
 
 export function Home() {
   return (
-    <div>
+    <div className = "header-nav">
       <h1>Create new note</h1>
-      <Link to = "/postList"><button style ={{backgroundColor:"orange", color:"white", borderRadius:"50%", width:"35px", height:"35px", border: "none"}}></button></Link> 
+      <Link to = "/postList"><button style ={{backgroundColor:"orange", color:"white", borderRadius:"50%", width:"35px", height:"35px", border: "none"}}>+</button></Link> 
     </div>
   )
 }
 
 export function About() {
   return (
-    <div>
+    <div className = "header-nav" >
       <h1>About</h1>
     </div>
   )
@@ -131,7 +133,7 @@ const PostList =({items,search,onRemove,onEdit})=>{
   console.log(items)  
   if(items){
   return (
-      <div>
+      <div style = {{marginTop:"-25px"}}>
         {items.map(item=> 
           <div key = {item.id}>
             <Link to ={`/postList/${item.id}`}>
@@ -191,8 +193,8 @@ const TagList =({items, onEdit, handleChange})=>{
     if(items){
     return (
         <div>
-           <input type= "search" placeholder = "Search by tag" onChange={handleChange}></input>
-           <div>Tag List</div>
+           <input type= "search" placeholder = "Search by #tag" onChange={handleChange} className = "form-control" style={{width:"250px"}}></input>
+           <div style = {{color: "white"}}><b>#Tag List</b></div>
            {items.map(item=> 
               <div key = {item.id}>
                 <Link to ={`/postList/${item.id}`}>
@@ -265,7 +267,7 @@ function changePost(post) {
 if(editedNote){
 return(
   <div>
-    <textarea  style={{display:"block"}} ref = {noteRef}></textarea><div className = "post">{(itemsSel)?itemsSel[0].post:null}</div>
+    <textarea  className = "form-control ta without" style={{display:"block", marginBottom:"10px"}} ref = {noteRef}></textarea><div className = "post">{(itemsSel)?itemsSel[0].post:null}</div>
     <button className = "btn btn-dark" onClick = {()=>noteRef.current.value = itemsSel[0].post}>Edit</button>
     <Link to="/postList">
       <button className = "btn btn-success margin-left" onClick = {handleEdit}>Save</button>

@@ -1,3 +1,7 @@
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,27 +9,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(37, 102, 145);
+  background-color:rgb(37, 102, 145) !important;
   padding: 16px;
 }
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 .container {
-  position:relative
+  position:relative;
+  /*background-color: rgb(37, 102, 145)*/
 }
 .placeholder {
   min-width:250px;
@@ -45,39 +34,8 @@ code {
   border-radius: 0 0 10px 0;
   word-break: break-all;
 }
-.buttonRemove {
-  position:absolute;
-  top: 0px;
-  right:-70px;
-  color:red;
-  border-color: red;
-}
-.buttonRemove:hover{
-  background-color: red;
-  color:white
-}
-.buttonEdit {
-  position:absolute;
-  top: 25px;
-  right:-45px;
-  color:darkgreen;
-  padding:1px 8px 1px 8px;
-  border-color:darkgreen
-}
-
-.buttonEdit:hover{
-  background-color: green;
-  color:white;
-}
 .margin-left {
   margin-left:7px
-}
-.page-item, .page-link, .paginate, .nn {
-  color:white
-}
-.cont {
-  width:285px;
-  position:relative
 }
 
 .save {
@@ -90,52 +48,7 @@ code {
     border:none;
     height:25px;
     width:50px
-  }
-  
-  .pagination li{
-  display:inline;
-  margin-left: 10px;
 }
-.page-link:focus {
-background-color:rgb(18, 168, 76)
-}
-.pagination {
-  position:absolute;
-  top:145px;
-  left:195px;
-}
-.paginate {
-  position: absolute;
-  top:162px;
-  left:149px
-}
-.wordCounterWrapper {
-  position: absolute;
-  left:500px;
-  top: 0px;
-  color:white
-}
-.pageSort {
-  visibility: visible;
-  width:100px
-}
-.page{
-  visibility: hidden;
-  width:100px
-}
-.span {
-  margin-top: 5px;
- }
-.tagInput {
-  color:white
-}
-.tagInput input {
-  font-size: 16px;
-  margin-top: 5px;
- }
- .taglist{
-  margin-left: 50px;
- }
 textarea:focus, input:focus {
   outline:none
 }
@@ -143,7 +56,8 @@ textarea:focus, input:focus {
   color:white
 }
 .tag {
-  cursor:pointer
+  cursor:pointer;
+  color:white
 }
 .show {
   visibility:hidden;
@@ -155,6 +69,10 @@ a:link {
 }
 a:hover ,a:visited, a:active {
   color:black
+}
+.save_ {
+  margin-left: 20px;
+  margin-bottom: 30px;;
 }
 @media (min-width:340px) and (max-width:480px) {
   .wordCounterWrapper{
@@ -181,10 +99,16 @@ a:hover ,a:visited, a:active {
     margin-top: 20px;
   }
 }
-
-textarea:not(.ta):focus{
- 
-  outline:none
+.ta {
+max-width:250px;
+height:150px;
+word-break: break-all;
+}
+.without{
+  border:none
+}
+.header-nav{
+  color:orange
 }
 textarea:not(.ta){
   border:none;
